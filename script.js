@@ -26,7 +26,14 @@ async function fetchData() {
             const population = populationValues[index];
             const employment = employmentValues[index];
             const row = document.createElement('tr');
-            row.innerHTML = `<td>${municipality}</td><td>${population}</td><td>${employment}</td><td>${(Math.round(employment/population * 100)/100).toFixed(2)}%</td>`;
+            const emplouPercent = (employment/population * 100).toFixed(2);
+            if (emplouPercent > 45) {
+                row.innerHTML = `<td style="background-color: #abffbd;">${municipality}</td><td style="background-color: #abffbd;">${population}</td><td style="background-color: #abffbd;">${employment}</td><td style="background-color: #abffbd;">${emplouPercent}%</td>`;
+            } else if (emplouPercent < 25) {
+                row.innerHTML = `<td style="background-color: #ff9e9e;">${municipality}</td><td style="background-color: #ff9e9e;">${population}</td><td style="background-color: #ff9e9e;">${employment}</td><td style="background-color: #ff9e9e;">${emplouPercent}%</td>`;
+            } else {
+                row.innerHTML = `<td>${municipality}</td><td>${population}</td><td>${employment}</td><td>${emplouPercent}%</td>`;
+            }
             tbody.appendChild(row);
         });
     } catch (error) {
